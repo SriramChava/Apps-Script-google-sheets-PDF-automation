@@ -3,9 +3,10 @@ Google apps script and Html files for developmentent of PDF automation softwares
 
 # Attendance
 # 1. Inputs
-Attendance PDF automation and mass emailing script takes a google sheet file as an input which has the following template : 
+Attendance PDF automation and mass emailing script takes a google sheet file as an input which has the following template : https://docs.google.com/spreadsheets/d/1hnFpYsxkFcuvRNZ0WQU3yI83I-nnSF_r210mYlJ0Nok/edit?usp=sharing
 The google app script runs on this template so in case any changes are made in the google sheets template similar changes have to be made in the google apps script     file to extract data from the correct cells.
 Google docs link for PDF template : 
+https://docs.google.com/document/d/1OaJwbb9l3ID9j9K2yGzrcTWGlTbtNCnwAEtltyPXIXo/edit?usp=sharing
 Variables from  google apps script can be directly imported into the google docs file using but on changing the variable names in the google docs file similar changes have to made in the code for correct substitution of the data.
 Please note that the sheet takes input using manual entry directly through the excel. A webapp can be deployed using google apps script to add data in excel through a  form.
   functions involved : 
