@@ -1,2 +1,29 @@
 # Google-Apps-Script-Attendance-Staff
-Google apps script, Java script and Html files for developement of PDF automation softwares, Staff management softwares
+Google apps script and Html files for developmentent of PDF automation softwares, Staff management software
+
+# Attendance
+# 1. Inputs
+Attendance PDF automation and mass emailing script takes a google sheet file as an input which has the following template : 
+The google app script runs on this template so in case any changes are made in the google sheets template similar changes have to be made in the google apps script     file to extract data from the correct cells.
+Google docs link for PDF template : 
+Variables from  google apps script can be directly imported into the google docs file using but on changing the variable names in the google docs file similar changes have to made in the code for correct substitution of the data.
+Please note that the sheet takes input using manual entry directly through the excel. A webapp can be deployed using google apps script to add data in excel through a  form.
+  functions involved : 
+  function Main() - Parent function running this runs all the functions and starts the process of data extraction and PDF generation and Emailing.
+  function getDatarange(firstr,firstc,lastr,lastc)
+  
+# 2. Data cleaning   
+After the data entries have been completed for a month. Then data from the excel sheet is extracted row-wise. This row-wise data is further segregated into various      variables (i.e Subject-wise attendance, mail, student name, subject-wise assignment etc) and the main array holding the row is accordingly split up into these          variables. Google apps script treats non filled cells as empty and these are extracted as empty arrays ([]). So if two cells are merged in google sheets then one cell  will be treated as having data and the other cell in the merged cell will be treated as empty([]). Hence filtering functions are required to remove NULL/empty          elements. These need to filtered so that they are not substituted in the PDF. 
+functions involved :
+function filterData (data)
+function concat(parent_data,data1,data2,data3)
+function div_data(st_data)
+ 
+ # 3. Automated PDF creation and emailing
+After all the data has been segregated into different variables. To maintain the original doc template, A copy of the origial doc is created in a temporary drive folder. In this temporary google doc file the variables are substituted. After the substitution the temporary doc file is converted into a PDF and is stored in a variable. To conserve space the temporary doc file is deleted and then the PDF is mailed to all the users in the mail array. The PDFs are also stored in a permanent drive folder.
+functions involved : 
+function create_PDFnMail(tot_p,tot_c,tot_m,name,tot_pasn,tot_casn,tot_masn,roll,mail,att_p,att_c,att_m,late_p,late_c,late_m,pasn,pasi,casn,casi,masn,masi,doc_file,Temp_Folder,PDF_Folder)
+
+
+# Fee Structure
+# Staff Management
