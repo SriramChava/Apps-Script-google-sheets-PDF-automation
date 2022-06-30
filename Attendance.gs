@@ -7,17 +7,17 @@ Copy the dotted portion of the link and this will be used in .getFile/FolderByID
 
 // 1.1 Get google doc file link to edit
    var doc_file = DriveApp.getFileById("LINK FOR GOOGLE DOCS FILE"); 
-// 1.2 Temporary folder which holds the above doc for each student this doc is copied, edited and deleted for each student. 
+/* 1.2 Temporary folder which holds the above doc for each student this doc is copied, edited and deleted for each student. 
        This is to make sure that the original doc is not changed as then each report will be modified with the earlier changes. 
-       After the doc is converted to pdf and mailed the temporary doc is generated again for each report: 
+       After the doc is converted to pdf and mailed the temporary doc is generated again for each report:*/ 
    var Temp_Folder =  DriveApp.getFolderById("LINK FOR TEMPORARY DRIVE FOLDER");
 // 1.3 This folder is responsible for holding the reports of all the students. 
    var PDF_Folder =DriveApp.getFolderById("LINK FOR DRIVE FOLER TO HOLD FINAL REPORTS");
 // 1.4 google sheet holding attendance,and assignment submission of all the students we get the sheet by name. 
    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("NAME OF THE SHEET");
 //1.4 Other global variables
-  var lastr = sheet.getLastRow()-2;                     // Last occupied row in the "Attendance" excel sheet
-  var lastc = sheet.getLastColumn();                    // Last occupied column in the "Attendance" excel sheet
+  var lastr = sheet.getLastRow()-2;                     // Last occupied row in the excel sheet
+  var lastc = sheet.getLastColumn();                    // Last occupied column in the excel sheet
   var tot_p = sheet.getRange("CE6").getValue();         // Total physics classes taken by the faculty in a month
   var tot_c = sheet.getRange("CF6").getValue();         // Total chemistry classes taken by the faculty in a month
   var tot_m = sheet.getRange("CG6").getValue();         // Total mathematics classes taken by the faculty in a month
@@ -117,14 +117,14 @@ function create_PDFnMail(tot_p,tot_c,tot_m,name,tot_pasn,tot_casn,tot_masn,roll,
   var PDF_File = PDF_Folder.createFile(PDF_content).setName("Monthly Attendance" + name);
   Temp_Folder.removeFile(temp_File);
 
-/* FUNCTION FOR MAILING UNCOMMENT WHENEVER WEBAPP IS READY*/
-//   // MailApp.sendEmail(mail, 'Monthly Attendance Report', "The monthly attendance report for student " + name + " can be found as follows:",   //{               
-//   //   attachments: [PDF_File.getAs(MimeType.PDF)],
-//   //   name : 'Progressive minds automated emailer'
-//   // });
+/* FUNCTION FOR MAILING UNCOMMENT WHENEVER WEBAPP IS READY
+ MailApp.sendEmail(mail, 'Monthly Attendance Report', "The monthly attendance report for student " + name + " can be found as follows:", {               
+ attachments: [PDF_File.getAs(MimeType.PDF)],
+ name : 'Progressive minds automated emailer'
+});
 
   Logger.log(PDF_File)
- }
+ }*/
 
 //Parent function this is the main function and runs all the other fuctions for data filtering, automated pdf generation and automated emailing.
 function getData()
