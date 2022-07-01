@@ -27,4 +27,14 @@ function create_PDFnMail(tot_p,tot_c,tot_m,name,tot_pasn,tot_casn,tot_masn,roll,
 
 
 # Fee Structure
+Fee Structure PDF automation and emailing script takes a google sheet file and a google docs file as an input. All the discounts are calculated within the sheet 
+itself, then all changes are reflected in the google docs template which is stored in google drive & also PDF will be generated and then the PDF is mailed to the student's E-mail id provided in the google sheets. 
+Different scripts are written for all the different classes like 9th,10th,11th,12th & droppers.
+A button is provided in the sheet itself, on clicking the button it will run the corresponding script and mail the PDF to the mentioned student & stores the PDF in google drive folder as well.
+
 # Staff Management
+The Staff Management system is a webapp, where staff of the organization can mark their daily attendance. The webapp includes a login dashboard which is protected by a passcode so that only staff can open the webpage.
+Staff will type his/her name and click on the ADD ENTRY button to record their entry time and at the time of leaving they can again type their name and click on ADD EXIT to record their exit time.
+A DELETE ENTRY button is also provided, to delete a specific entry whereas, the DELETE ALL button will delete all the entries from the spreadsheet.
+After the end of every month the data from the google sheet will be converted to PDF and will get stored in the google drive folder and the sheet will become empty again.
+Two seperate buttons are also provided in the webapp so that, user can see the google sheet as well as the google drive folder.
