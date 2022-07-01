@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_self">
+
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <style>
+  body {
+    background-image: url("https://images.unsplash.com/photo-1568051778530-0fe22ba2123b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .logo {
+    width: auto;
+    height: auto;
+    text-align: center;
+  }
+
+  .logo img {
+    display: inline-block;
+  }
+
+  /* label color */
+  .input-field label {
+    color: rgba(72, 69, 69, 0.903);
+  }
+
+  /* label focus color */
+  .input-field input[type=text]:focus+label {
+    color: rgb(7, 12, 85);
+  }
+
+  /* label underline focus color */
+  .input-field input[type=text]:focus {
+    border-bottom: 1px solid rgb(7, 12, 85);
+    box-shadow: 0 1px 0 0 rgb(7, 12, 85);
+  }
+</style>
+
+  </head>
+
+  <body>
+   
+    <div class="logo">
+      <img src="https://i.im.ge/2022/06/24/urdGzP.png" alt="urdGzP.png" class="logo"/>
+    </div>
+
+
+    <div class="container">
+
+    <div class="row">
+      <div class="input-field col s6">
+        <input id="usernameentry" type="text" class="validate">
+        <label for="usernameentry"> Entry Name </label>
+      </div>
+    </div>
+    
+    <div class="row">
+      <button id="entry btn" class="waves-effect waves-light btn-large  indigo darken-3"><i class="material-icons right">near_me</i>ADD ENTRY</button>
+    </div>
+
+
+    <div class="row">
+      <div class="input-field col s6">
+        <input id="usernameexit" type="text" class="validate">
+        <label for="usernameexit"> Exit Name </label>
+      </div>
+    </div>
+    
+    <div class="row">
+      <button id="exit btn" class="waves-effect waves-light btn-large  indigo darken-3"><i class="material-icons right">near_me</i>ADD EXIT</button>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s6">
+        <input id="deleteonename" type="text" class="validate">
+        <label for="deleteonename"> Enter the name of person to delete entry </label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s6">
+        <input id="deleteonedate" type="text" class="validate">
+        <label for="deleteonedate"> Enter the date of entry to delete it (Keep the format as DD/MM/YYYY)</label>
+      </div>
+    </div>
+    
+    <div class="row">
+      <button id="del one btn" class="waves-effect waves-light btn-large  indigo darken-3"><i class="material-icons right">delete_forever</i>Delete one Entry</button>
+   
+      <button id="del btn" class="waves-effect waves-light btn-large  indigo darken-3"><i class="material-icons right">delete_forever</i>Delete All Entries</button>
+      </div>
+
+      <div class="row">
+      <button id="gen_pdf" class="waves-effect waves-light btn-large  indigo darken-3"><i class="material-icons right">near_me</i>GENERATE PDF</button>
+    </div>
+
+     
+   <div class="row">
+    <div class="col s6 m5">
+      <div class="card-panel red accent-3">
+        <span class="white-text"> After every month all entries will be removed in the connected excel and they will be saved in the connected drive folder.
+        </span>
+      </div>
+    </div>
+  </div>
+
+
+   <div class="row">
+      <a href="      " target="_blank" class="waves-effect waves-light btn-large  teal darken-3"><i class="material-icons right">equalizer</i>Visit Google drive Folder</a>
+  
+      <a href="https://docs.google.com/spreadsheets/d/1detjZoWB1zUu4e9SPDpMemK_nM0fKQE7285PhFb1Pwc/edit#gid=0" target="_blank" class="waves-effect waves-light btn-large  teal darken-3"><i class="material-icons right">equalizer</i>Visit Staff leave Spreadsheet</a>
+    </div>
+
+
+  </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+       
+    document.getElementById("entry btn").addEventListener("click",addEntry);
+    document.getElementById("exit btn").addEventListener("click",addExit);
+    document.getElementById("del btn").addEventListener("click",deleteAllEntries);
+    document.getElementById("del one btn").addEventListener("click",deleteAnyEntry);
+
+    function addEntry()
+    {    
+          console.log("add a new entry");
+          var uname = document.getElementById("usernameentry").value;
+          document.getElementById("usernameentry").value = "";
+          google.script.run.entryNameAndTime(uname);
+    }
+        function addExit()
+    {    
+          console.log("add a new exit");
+          var uname = document.getElementById("usernameexit").value;
+          document.getElementById("usernameexit").value = "";
+          google.script.run.exitNameAndTime(uname);
+    }
+    function deleteAnyEntry()
+    {   
+        console.log("deleting one entry");
+        var entryname = document.getElementById("deleteonename").value;
+        document.getElementById("deleteonename").value = "";
+        var entrydate = document.getElementById("deleteonedate").value;
+        document.getElementById("deleteonedate").value = "";
+        google.script.run.deleteOneEntry(entryname,entrydate);
+    }
+    function deleteAllEntries()
+    {
+        console.log("deleting all entries");
+        google.script.run.deleteALL();
+    }
+
+    </script>
+  </body>
+</html>
+
