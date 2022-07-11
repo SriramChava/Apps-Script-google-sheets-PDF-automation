@@ -1,6 +1,3 @@
-/* ======================================================== */
-// Make changes only to this segment                       
-
 var ID = "https://docs.google.com/spreadsheets/d/1MLJeGUdLFPgnDuirYW8Uhkd-fAyReqlA5dgeURgqK2c/edit#gid=0";  
 var lock = 'admin'                                         
 
@@ -107,6 +104,7 @@ function entryNameAndTime(name)
 {
   var dateAndTimeEntry = new Date();
   var currentTimeEntry = dateAndTimeEntry.toLocaleTimeString();
+  var currentDateEntry = dateAndTimeEntry.toDateString();
   var endrow = ws.getLastRow();
   var exited = true;
   var data = ws.getDataRange().getValues();
@@ -116,43 +114,36 @@ function entryNameAndTime(name)
         exited = false;
         endrow--;
     }
-    if(exited)
-       ws.appendRow([name,dateAndTimeEntry,currentTimeEntry,0]);
+    if(exited && name != "")
+       ws.appendRow([name,currentDateEntry,currentTimeEntry,0]);
 }
-
+function addOffForEntry(name)
+{
+  if(name!=""){
+   var dateAndTimeEntry = new Date();
+   var currentDateEntry = dateAndTimeEntry.toDateString();
+   ws.appendRow([name,currentDateEntry,"Off","Off"]);
+  }
+}
+function addLeaveForEntry(name)
+{
+  if(name!="")
+  {
+    var dateAndTimeEntry = new Date();
+    var currentDateEntry = dateAndTimeEntry.toDateString();
+    ws.appendRow([name,currentDateEntry,"Leave","Leave"]);
+  }
+}
 function exitNameAndTime(name)
 {
   var dateAndTime = new Date();
   var currentTime = dateAndTime.toLocaleTimeString();
-  endrow = ws.getLastRow();
   data = ws.getDataRange().getValues();
     endrow = ws.getLastRow();
     while(endrow-1)
     {   if(data[endrow-1][0]==name && data[endrow-1][3] == 0)
         ws.getRange(endrow,4).setValue(currentTime);
         endrow--;
-    }
-}
-
-function deleteOneEntry(entryname,entrydate)
-{  
-   var endrow = ws.getLastRow();
-   var data = ws.getDataRange().getValues();
-   var splitentrydate = entrydate.split("/");
-   var daytodelete = splitentrydate[0];
-
-    while(endrow-1)
-    { 
-      if(data[endrow-1][0]==entryname) 
-      {
-        var date = data[endrow-1][1];
-        var currentdate = date.getDate();
-        if(daytodelete == currentdate);
-         {
-           ws.deleteRow(endrow);
-         }
-      }
-      endrow--;
     }
 }
 
@@ -166,11 +157,55 @@ function deleteALL ()
     }
 }
 
-function testThis()
+function saveDataAndGeneratePDF()
+ {  
+    var date  = new Date();
+    endrow = ws.getLastRow();
+    data = ws.getDataRange().getValues();
+    var classtaken = {};
+    var offtaken = {};
+    var leavetaken = {};
+    for (var i = 1; i < endrow ; i++) 
+      {        
+        if (offtaken[data[i][0].toString().toUpperCase()] === undefined && data[i][2]=="Off") 
+            offtaken[data[i][0].toString().toUpperCase()] = 1;
+        else if(data[i][2]=="Off")
+            offtaken[data[i][0].toString().toUpperCase()]++;
+      }
+    for (var i = 1; i < endrow ; i++) 
+      {        
+        if (leavetaken[data[i][0].toString().toUpperCase()] === undefined && data[i][2]=="Leave") 
+            leavetaken[data[i][0].toString().toUpperCase()] = 1;
+        else if(data[i][2]=="Leave")
+            leavetaken[data[i][0].toString().toUpperCase()]++;
+      }
+    for (var i = 1; i < endrow ; i++) 
+      {        
+        if (classtaken[data[i][0].toString().toUpperCase()] === undefined && (data[i][2]!="Leave" && data[i][2]!="Off")) 
+            classtaken[data[i][0].toString().toUpperCase()] = 1;
+        else if(data[i][2]!="Off" && data[i][2]!="Leave")
+            classtaken[data[i][0].toString().toUpperCase()]++;
+      }
+
+    
+      saveDataInDrive();
+      deleteALL();
+      generateAndMailPDFs(classtaken,offtaken,leavetaken);
+
+  }
+
+function saveDataInDrive()
 {
-  var dateandTimeEntry = new Date();
-  var currdate = dateandTimeEntry;
-  Logger.log(dateandTimeEntry.getDate());
-
-
+        // staff attendance sheet link : https://docs.google.com/spreadsheets/d/1detjZoWB1zUu4e9SPDpMemK_nM0fKQE7285PhFb1Pwc/edit?usp=sharing
+      var staffAttendanceSheet = DriveApp.getFileById("1detjZoWB1zUu4e9SPDpMemK_nM0fKQE7285PhFb1Pwc"); 
+      // Staff attendance data folder link : https://drive.google.com/drive/folders/1blEzTHOk8QdIbgQfJTtq0FTqxi_GSsdO?usp=sharing
+      var staffAttendanceSheetFolder = DriveApp.getFolderById("1blEzTHOk8QdIbgQfJTtq0FTqxi_GSsdO");
+      var date = new Date();
+      var month = Utilities.formatDate(date, Session.getScriptTimeZone(), "MMM");
+      var year = date.getFullYear();
+      var filename = "Staff Attendance Report " + month + " " + year; 
+      staffAttendanceSheet.makeCopy(filename,staffAttendanceSheetFolder);
 }
+
+function generateAndMailPDFs(classtaken,offtaken,leavetaken)
+{}
