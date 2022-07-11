@@ -60,9 +60,16 @@
     </div>
     
     <div class="row">
-      <button id="entry btn" class="waves-effect waves-light btn-large  indigo darken-3"><i class="material-icons right">near_me</i>ADD ENTRY</button>
+      <button id="entry btn" class="waves-effect waves-light btn-large  indigo darken-3"><i class="material-icons right">near_me</i>ADD ENTRY NAME</button>
     </div>
 
+    <div class="row">
+      <button id="add off" class="waves-effect waves-light btn-large  indigo darken-3"><i class="material-icons right">near_me</i>ADD OFF FOR ENTRY</button>
+    </div>
+
+    <div class="row">
+      <button id="add leave" class="waves-effect waves-light btn-large  indigo darken-3"><i class="material-icons right">near_me</i>ADD LEAVE FOR ENTRY</button>
+    </div>
 
     <div class="row">
       <div class="input-field col s6">
@@ -72,46 +79,34 @@
     </div>
     
     <div class="row">
-      <button id="exit btn" class="waves-effect waves-light btn-large  indigo darken-3"><i class="material-icons right">near_me</i>ADD EXIT</button>
+      <button id="exit btn" class="waves-effect waves-light btn-large  indigo darken-3"><i class="material-icons right">near_me</i>ADD EXIT NAME</button>
     </div>
 
-    <div class="row">
-      <div class="input-field col s6">
-        <input id="deleteonename" type="text" class="validate">
-        <label for="deleteonename"> Enter the name of person to delete entry </label>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="input-field col s6">
-        <input id="deleteonedate" type="text" class="validate">
-        <label for="deleteonedate"> Enter the date of entry to delete it (Keep the format as DD/MM/YYYY)</label>
-      </div>
-    </div>
-    
-    <div class="row">
-      <button id="del one btn" class="waves-effect waves-light btn-large  indigo darken-3"><i class="material-icons right">delete_forever</i>Delete one Entry</button>
-   
+      <div class="row">
       <button id="del btn" class="waves-effect waves-light btn-large  indigo darken-3"><i class="material-icons right">delete_forever</i>Delete All Entries</button>
       </div>
 
-      <div class="row">
-      <button id="gen_pdf" class="waves-effect waves-light btn-large  indigo darken-3"><i class="material-icons right">near_me</i>GENERATE PDF</button>
-    </div>
-
-     
-   <div class="row">
+       <div class="row">
     <div class="col s6 m5">
       <div class="card-panel red accent-3">
-        <span class="white-text"> After every month all entries will be removed in the connected excel and they will be saved in the connected drive folder.
+        <span class="white-text"> With a large number of entries it might take a longer time to delete all entries please be patient.
         </span>
       </div>
     </div>
   </div>
 
 
+      <div class="row">
+      <button id="gen_pdf" class="waves-effect waves-light btn-large  indigo darken-3"><i class="material-icons right">near_me</i>SAVE EXCEL IN DRIVE AND GENERATE PDF</button>
+    </div>
+
    <div class="row">
-      <a href="      " target="_blank" class="waves-effect waves-light btn-large  teal darken-3"><i class="material-icons right">equalizer</i>Visit Google drive Folder</a>
+      <a href="https://drive.google.com/drive/folders/1blEzTHOk8QdIbgQfJTtq0FTqxi_GSsdO?usp=sharing" target="_blank" class="waves-effect waves-light btn-large  teal darken-3"><i class="material-icons right">equalizer</i>Visit drive folder for older spreadsheets</a>
+      </div>
+      
+      <div class="row">
+      <a href="" target="_blank" class="waves-effect waves-light btn-large  teal darken-3"><i class="material-icons right">equalizer</i>Visit drive folder for PDFs</a>
+      </div>
   
       <a href="https://docs.google.com/spreadsheets/d/1detjZoWB1zUu4e9SPDpMemK_nM0fKQE7285PhFb1Pwc/edit#gid=0" target="_blank" class="waves-effect waves-light btn-large  teal darken-3"><i class="material-icons right">equalizer</i>Visit Staff leave Spreadsheet</a>
     </div>
@@ -125,7 +120,9 @@
     document.getElementById("entry btn").addEventListener("click",addEntry);
     document.getElementById("exit btn").addEventListener("click",addExit);
     document.getElementById("del btn").addEventListener("click",deleteAllEntries);
-    document.getElementById("del one btn").addEventListener("click",deleteAnyEntry);
+    document.getElementById("add off").addEventListener("click",addOff);
+    document.getElementById("add leave").addEventListener("click",addLeave);
+    document.getElementById("gen_pdf").addEventListener("click",saveAndGenerate)
 
     function addEntry()
     {    
@@ -134,29 +131,38 @@
           document.getElementById("usernameentry").value = "";
           google.script.run.entryNameAndTime(uname);
     }
-        function addExit()
+    function addOff()
+    {
+          console.log("add a new off for a entry");
+          var uname = document.getElementById("usernameentry").value;
+          document.getElementById("usernameentry").value = "";
+          google.script.run.addOffForEntry(uname);
+    }
+    function addLeave()
+    {    
+          console.log("add a new leave for a entry");
+          var uname = document.getElementById("usernameentry").value;
+          document.getElementById("usernameentry").value = "";
+          google.script.run.addLeaveForEntry(uname);
+
+    }
+    function addExit()
     {    
           console.log("add a new exit");
           var uname = document.getElementById("usernameexit").value;
           document.getElementById("usernameexit").value = "";
           google.script.run.exitNameAndTime(uname);
     }
-    function deleteAnyEntry()
-    {   
-        console.log("deleting one entry");
-        var entryname = document.getElementById("deleteonename").value;
-        document.getElementById("deleteonename").value = "";
-        var entrydate = document.getElementById("deleteonedate").value;
-        document.getElementById("deleteonedate").value = "";
-        google.script.run.deleteOneEntry(entryname,entrydate);
-    }
     function deleteAllEntries()
     {
         console.log("deleting all entries");
         google.script.run.deleteALL();
     }
-
+    function saveAndGenerate()
+    {
+      console.log("Saving sheet and generating PDF's");
+      google.script.run.saveDataAndGeneratePDF();
+    }
     </script>
   </body>
 </html>
-
