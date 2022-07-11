@@ -250,13 +250,15 @@ function generateAndMailPDFs(classtaken,offtaken,leavetaken)
        body.replaceText("{leave_taken}",leav_taken);
 
        temp_doc_file.saveAndClose();
-
-       var PDF_content = temp_File.getAs(MimeType.PDF);
-       var PDF_File = PDF_Folder.createFile(PDF_content).setName("Monthly Attendance " + name);
-       Temp_Folder.removeFile(temp_File);
+       
        var date = new Date();
        var month = Utilities.formatDate(date, Session.getScriptTimeZone(), "MMM");
        var year = date.getFullYear();
+      
+       var PDF_content = temp_File.getAs(MimeType.PDF);
+       var PDF_File = PDF_Folder.createFile(PDF_content).setName("Monthly Attendance " + name + " "+ month + " " + year);
+       Temp_Folder.removeFile(temp_File);
+
 
   MailApp.sendEmail(eml_id, "Staff Attendance Report " + month + " " + year, "The attendance report for the month of " + month + " for staff " + name + " can be found as follows:",   {               
     attachments: [PDF_File.getAs(MimeType.PDF)],
