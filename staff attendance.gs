@@ -1,3 +1,6 @@
+/* ======================================================== */
+// Make changes only to this segment                       
+
 var ID = "https://docs.google.com/spreadsheets/d/1MLJeGUdLFPgnDuirYW8Uhkd-fAyReqlA5dgeURgqK2c/edit#gid=0";  
 var lock = 'admin'                                         
 
@@ -208,4 +211,58 @@ function saveDataInDrive()
 }
 
 function generateAndMailPDFs(classtaken,offtaken,leavetaken)
-{}
+{
+  var emailID = "https://docs.google.com/spreadsheets/d/1rbTjkRRi2dwO9zdCLXg_RuMAH_Y0xB8s_IQYTQXfmcM/edit#gid=0";
+  var emailSheet = SpreadsheetApp.openByUrl(emailID)
+  var emailSheetData = emailSheet.getSheetByName("Emaildata")
+  var emailValues = emailSheetData.getDataRange().getValues();
+
+// doc file link :- https://docs.google.com/document/d/1TuZA4rup2RwJy3uyrf7cOzDnPEDCa4ifUbIjTdDNNTE/edit
+  var doc_file = DriveApp.getFileById("1TuZA4rup2RwJy3uyrf7cOzDnPEDCa4ifUbIjTdDNNTE");
+  var Temp_Folder =  DriveApp.getFolderById("1HBABusdfJWtZ-Hic8UylDZZNlsq7BTO2");
+  var PDF_Folder =DriveApp.getFolderById("1XSoB_hoe5KQPsCZBgqMQ7Fds0UIF3nX8");
+  // Logger.log(classtaken);
+  // Logger.log(offtaken);
+  // Logger.log(leavetaken);
+
+  for(let idx = 1;idx<emailValues.length;idx++){
+     // Logger.log(emailValues[idx][0]); // Name
+     // Logger.log(emailValues[idx][1]); // email ids
+
+      var name = emailValues[idx][0];
+      var eml_id = emailValues[idx][1];
+      var cls_taken = classtaken[emailValues[idx][0].toString().toUpperCase()];
+      var of_taken = offtaken[emailValues[idx][0].toString().toUpperCase()];
+      var leav_taken = leavetaken[emailValues[idx][0].toString().toUpperCase()];
+      if(cls_taken == null) cls_taken = 0.0;
+      if(of_taken == null) of_taken = 0.0;
+      if(leav_taken == null) leav_taken = 0.0;
+      // Logger.log(cls_taken);
+      // Logger.log(of_taken);
+      // Logger.log(leav_taken);
+
+       var temp_File = doc_file.makeCopy(Temp_Folder);
+       var temp_doc_file = DocumentApp.openById(temp_File.getId());
+       var body = temp_doc_file.getBody();
+       body.replaceText("{staff_name}",name);
+       body.replaceText("{class_taken}",cls_taken);
+       body.replaceText("{off_taken}",of_taken);
+       body.replaceText("{leave_taken}",leav_taken);
+
+       temp_doc_file.saveAndClose();
+
+       var PDF_content = temp_File.getAs(MimeType.PDF);
+       var PDF_File = PDF_Folder.createFile(PDF_content).setName("Monthly Attendance " + name);
+       Temp_Folder.removeFile(temp_File);
+       var date = new Date();
+       var month = Utilities.formatDate(date, Session.getScriptTimeZone(), "MMM");
+       var year = date.getFullYear();
+
+  MailApp.sendEmail(eml_id, "Staff Attendance Report " + month + " " + year, "The attendance report for the month of " + month + " for staff " + name + " can be found as follows:",   {               
+    attachments: [PDF_File.getAs(MimeType.PDF)],
+    name : 'Progressive minds automated emailer'
+  });
+
+   Logger.log(PDF_File)
+  }
+}
