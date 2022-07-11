@@ -219,8 +219,8 @@ function generateAndMailPDFs(classtaken,offtaken,leavetaken)
 
 // doc file link :- https://docs.google.com/document/d/1TuZA4rup2RwJy3uyrf7cOzDnPEDCa4ifUbIjTdDNNTE/edit
   var doc_file = DriveApp.getFileById("1TuZA4rup2RwJy3uyrf7cOzDnPEDCa4ifUbIjTdDNNTE");
-  var Temp_Folder =  DriveApp.getFolderById("1HBABusdfJWtZ-Hic8UylDZZNlsq7BTO2");
-  var PDF_Folder =DriveApp.getFolderById("1XSoB_hoe5KQPsCZBgqMQ7Fds0UIF3nX8");
+  var Temp_Folder =  DriveApp.getFolderById("13kAABko527GAWgO7HCl-CcNSdhecpent");
+  var PDF_Folder =DriveApp.getFolderById("14LyPesrLL7MKiMDmxdqCoudMB1uCn6uA");
   // Logger.log(classtaken);
   // Logger.log(offtaken);
   // Logger.log(leavetaken);
