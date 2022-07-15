@@ -2,14 +2,14 @@
 
 // 1. DEFINING GLOBAL VARIABLES
 
-// 1.1 Google doc link for pdf template of Fee Structure report: https://docs.google.com/document/d/1c7inSR1iasiyPaGs6AmqIBVV1pVoMn_myR_nPthr7wU/edit
-var docd_file = DriveApp.getFileById("1c7inSR1iasiyPaGs6AmqIBVV1pVoMn_myR_nPthr7wU"); 
-// 1.2 Temporary folder which holds the above doc for each student this doc is copied, edited and deleted for each student. This is to make sure that the original doc is not changed as then each report will be modified with the earlier changes. After the doc is converted to pdf and mailed the temporary doc is generated again for each report: https://drive.google.com/drive/u/0/folders/1MtuLu3NCbJYh5C5RsWpjDi1KYnxHv-Lf
-  var Tempd_Folder =  DriveApp.getFolderById("1MtuLu3NCbJYh5C5RsWpjDi1KYnxHv-Lf");
-// 1.3 This folder is responsible for holding the reports of all the students. :  https://drive.google.com/drive/u/0/folders/1wQBF6bMangBnxFvgbJRI6ZKdgm-jitkv
-  var PDFd_Folder =DriveApp.getFolderById("1wQBF6bMangBnxFvgbJRI6ZKdgm-jitkv");
-//1.4 google sheet holding attendance,and assignment submission of all the students we get the sheet by name and the name of the sheet is "Attendance" : https://docs.google.com/spreadsheets/d/1M6wvyTyRvZMWFkGV-TTRf9bjkyG53iE8QDPNDdtU894/edit?usp=sharing 
-  var sheetd = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Dropper");
+// 1.1 Google doc link for pdf template of Fee Structure report: https://docs.google.com/document/d/xxxxxxxxxxxxxxxxxxxxxxxxxxx/edit
+var docd_file = DriveApp.getFileById("Your Google Docs Template"); 
+// 1.2 Temporary folder which holds the above doc for each student this doc is copied, edited and deleted for each student. This is to make sure that the original doc is not changed as then each report will be modified with the earlier changes. After the doc is converted to pdf and mailed the temporary doc is generated again for each report: https://drive.google.com/drive/u/0/folders/xxxxxxxxxxxxxxxxxxxxxxxxx
+  var Tempd_Folder =  DriveApp.getFolderById("Drive Temp Folder");
+// 1.3 This folder is responsible for holding the reports of all the students. :  https://drive.google.com/drive/u/0/folders/xxxxxxxxxxxxxxxxxxxxxxxx
+  var PDFd_Folder =DriveApp.getFolderById("Drive Main Folder");
+//1.4 google sheet holding attendance,and assignment submission of all the students we get the sheet by name and the name of the sheet is "Attendance" : https://docs.google.com/spreadsheets/d/xxxxxxxxxxxxxxxxxxxxxxxxxxxxx/edit?usp=sharing 
+  var sheetd = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Sheet Name");
 
 // upto 2 decimal value 
 function typecastd(numb) {
@@ -117,11 +117,11 @@ function create_PDFnMaild(ad_fed,ad_perd,tutd_fe,tutd_per,bookd_fe,bookd_per,inf
   var PDF_File = PDFd_Folder.createFile(PDF_content).setName("Admission Report " + named + " " + rolld);
   Tempd_Folder.removeFile(temp_File);
 
-/* FUNCTION FOR MAILING UNCOMMENT WHENEVER WEBAPP IS READY*/
-  // MailApp.sendEmail(maild, 'Admission Report', "The admission report for student " + named + " can be found as follows:",   {               
-  //   attachments: [PDF_File.getAs(MimeType.PDF)],
-  //   name : 'Progressive minds automated emailer'
-  // });
+ FUNCTION FOR MAILING UNCOMMENT WHENEVER WEBAPP IS READY*/
+   MailApp.sendEmail(maild, 'Admission Report', "The admission report for student " + named + " can be found as follows:",   {               
+     attachments: [PDF_File.getAs(MimeType.PDF)],
+     name : 'Progressive minds automated emailer'
+   });
 
   Logger.log(PDF_File)
  }
