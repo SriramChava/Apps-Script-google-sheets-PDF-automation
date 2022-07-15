@@ -4,10 +4,10 @@
 
 // 1.1 Google doc link for pdf template of Fee Structure report :https://docs.google.com/document/d/xxxxxxxxxxxxxxxxxxxx/edit
 var doc_file = DriveApp.getFileById("Your Google Docs Template"); 
-// 1.2 Temporary folder which holds the above doc for each student this doc is copied, edited and deleted for each student. This is to make sure that the original doc is not changed as then each report will be modified with the earlier changes. After the doc is converted to pdf and mailed the temporary doc is generated again for each report: https://drive.google.com/drive/u/0/folders/1MtuLu3NCbJYh5C5RsWpjDi1KYnxHv-Lf
-  var Temp_Folder =  DriveApp.getFolderById("Drive for temp folder");
+// 1.2 Temporary folder which holds the above doc for each student this doc is copied, edited and deleted for each student. This is to make sure that the original doc is not changed as then each report will be modified with the earlier changes. After the doc is converted to pdf and mailed the temporary doc is generated again for each report: https://drive.google.com/drive/u/0/folders/xxxxxxxxxxxxxx
+  var Temp_Folder =  DriveApp.getFolderById("Drive Temp Folder");
 // 1.3 This folder is responsible for holding the reports of all the students. :  https://drive.google.com/drive/u/0/folders/xxxxxxxxxxxxxxxx
-  var PDF_Folder =DriveApp.getFolderById("Excel Sheet");
+  var PDF_Folder =DriveApp.getFolderById("Drive Main Folder");
 //1.4 google sheet holding attendance,and assignment submission of all the students we get the sheet by name and the name of the sheet is "Attendance" : https://docs.google.com/spreadsheets/d/xxxxxxxxxxxxxxxxxxxxxxx/edit?usp=sharing 
   var sheet1 = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Sheet Name");
 
