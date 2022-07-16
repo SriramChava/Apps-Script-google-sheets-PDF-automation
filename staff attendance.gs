@@ -1,3 +1,6 @@
+// Google Apps Script Documentation : https://developers.google.com/apps-script/guides/sheets/functions
+
+
 /* ======================================================== */
 // Make changes only to this segment                       
 
