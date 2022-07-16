@@ -1,7 +1,7 @@
 /* ======================================================== */
 // Make changes only to this segment                       
 
-var ID = "https://docs.google.com/spreadsheets/d/1MLJeGUdLFPgnDuirYW8Uhkd-fAyReqlA5dgeURgqK2c/edit#gid=0";  
+var ID = "SHEET LINK FOR PASSWORD DATABASE";  
 var lock = 'admin'                                         
 
 /*======================================================== */
@@ -99,7 +99,7 @@ function webAppURL(linkAddr) {
 
 // website related functions
 
-var url = "https://docs.google.com/spreadsheets/d/1detjZoWB1zUu4e9SPDpMemK_nM0fKQE7285PhFb1Pwc/edit#gid=0";
+var url = "YUOR SHEET LINK FOR STAFF ATTENDANCE";
 var ss1 = SpreadsheetApp.openByUrl(url);
 var ws = ss1.getSheetByName("data");
 
@@ -199,10 +199,9 @@ function saveDataAndGeneratePDF()
 
 function saveDataInDrive()
 {
-        // staff attendance sheet link : https://docs.google.com/spreadsheets/d/1detjZoWB1zUu4e9SPDpMemK_nM0fKQE7285PhFb1Pwc/edit?usp=sharing
-      var staffAttendanceSheet = DriveApp.getFileById("1detjZoWB1zUu4e9SPDpMemK_nM0fKQE7285PhFb1Pwc"); 
-      // Staff attendance data folder link : https://drive.google.com/drive/folders/1blEzTHOk8QdIbgQfJTtq0FTqxi_GSsdO?usp=sharing
-      var staffAttendanceSheetFolder = DriveApp.getFolderById("1blEzTHOk8QdIbgQfJTtq0FTqxi_GSsdO");
+        
+      var staffAttendanceSheet = DriveApp.getFileById("YOUR SHEET LINK"); 
+      var staffAttendanceSheetFolder = DriveApp.getFolderById("YOUR DRIVE FOLDER LINK HOLDING OLDER SPREADSHEETS");
       var date = new Date();
       var month = Utilities.formatDate(date, Session.getScriptTimeZone(), "MMM");
       var year = date.getFullYear();
@@ -212,15 +211,14 @@ function saveDataInDrive()
 
 function generateAndMailPDFs(classtaken,offtaken,leavetaken)
 {
-  var emailID = "https://docs.google.com/spreadsheets/d/1rbTjkRRi2dwO9zdCLXg_RuMAH_Y0xB8s_IQYTQXfmcM/edit#gid=0";
+  var emailID = "YOUR EMAIL SHEET LINK HOLDING ALL EMAILS OF STAFF";
   var emailSheet = SpreadsheetApp.openByUrl(emailID)
   var emailSheetData = emailSheet.getSheetByName("Emaildata")
   var emailValues = emailSheetData.getDataRange().getValues();
 
-// doc file link :- https://docs.google.com/document/d/1TuZA4rup2RwJy3uyrf7cOzDnPEDCa4ifUbIjTdDNNTE/edit
-  var doc_file = DriveApp.getFileById("1TuZA4rup2RwJy3uyrf7cOzDnPEDCa4ifUbIjTdDNNTE");
-  var Temp_Folder =  DriveApp.getFolderById("13kAABko527GAWgO7HCl-CcNSdhecpent");
-  var PDF_Folder =DriveApp.getFolderById("14LyPesrLL7MKiMDmxdqCoudMB1uCn6uA");
+  var doc_file = DriveApp.getFileById("Google DOCS link holding template of the PDF this will later be converted to a PDF");
+  var Temp_Folder =  DriveApp.getFolderById("DRIVE FOLDER LINK TO HOLD TEMPORARY PDFS.THESE PDFS WILL BE DELETED AFTER EXECUTION, BUT THIS FOLDER IS ESSENTIAL FOR FUNCTIONING OF THEIS APPLICATION.");
+  var PDF_Folder =DriveApp.getFolderById("DRIVE LINK OF FOLDER WHICH WILL HOLD ACTUAL PDFS OF ATTENDANCE REPORTS FOR ALL STAFF");
   // Logger.log(classtaken);
   // Logger.log(offtaken);
   // Logger.log(leavetaken);
